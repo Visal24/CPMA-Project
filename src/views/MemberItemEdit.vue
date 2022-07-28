@@ -208,7 +208,7 @@ export default {
          this.tpw=true
          else
          this.tpw=false
-         if(this.email== false && this.phone== false && this.fname== false && this.lname== false && this.tpw== false && (this.txtrole== "Admin" || this.txtrole== "Moderator") && (this.txtactive== "ACTIVE" || this.txtactive== "INACTIVE")){
+         if(this.email== false && this.phone== false && this.fname== false && this.lname== false && this.tpw== false && (this.txtrole== "Admin" || this.txtrole== "Moderator") && (this.txtactive== "Active" || this.txtactive== "Inactive")){
            this.$router.push({name:'mlist'})
            alert('Edit Successfully')
             this.Members =localStorage.getItem('Member'); 
@@ -236,11 +236,11 @@ export default {
   }
     ,
     Active(){
-      this.txtactive="ACTIVE",
+      this.txtactive="Active",
       this.active=false
     },
   Inactive(){
-      this.txtactive="INACTIVE",
+      this.txtactive="Inactive",
       this.active=false
     },
      Admin(){

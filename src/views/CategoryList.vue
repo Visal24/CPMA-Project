@@ -26,11 +26,11 @@
                 <td class="w-1/6 text-center">{{Categorys.Order}}</td>
                 <td class="w-1/6 text-center">{{Categorys.Category}}</td>
                 <td class="w-1/12 text-center"  @click="act(c)">
-                  <input type="button" class="px-4 py-1 text-indigo-500 bg-indigo-200 rounded-md activitist" v-if="Categorys.Status==='ACTIVE'" v-model="Categorys.Status">
-                  <input type="button" class="px-4 py-1 text-red-500 bg-red-200 rounded-md activitist" v-else-if="Categorys.Status==='INACTIVE'" v-model="Categorys.Status">
+                  <input type="button" class="px-4 py-1 text-indigo-500 uppercase bg-indigo-200 rounded-md activitist" v-if="Categorys.Status==='Active'" v-model="Categorys.Status">
+                  <input type="button" class="px-4 py-1 text-red-500 uppercase bg-red-200 rounded-md activitist" v-else-if="Categorys.Status==='Inactive'" v-model="Categorys.Status">
                 </td>
                 <td class="w-1/6 text-center">2022-09-15 10:48:06</td>
-                <td class="float-right py-4 mr-5" ><div @click="Categorys.box=!Categorys.box"><font-awesome-icon icon="fa-solid fa-ellipsis-vertical"/></div> </td>
+                <td class="float-right" ><div @click="Categorys.box=!Categorys.box" class="px-5 py-4 cursor-pointer"><font-awesome-icon icon="fa-solid fa-ellipsis-vertical"/></div> </td>
                 <div v-if="Categorys.box" class="absolute z-20 h-20 overflow-hidden bg-indigo-200 rounded-md right-6 top-5 w-44" @mouseleave="Categorys.box=!Categorys.box">
                   <router-link :to="`/Category/Item/Edit/${c}`">
                     <div class="flex items-center w-full border-b-2 h-1/2 border-neutral-300 hover:bg-indigo-400" >
@@ -56,14 +56,11 @@
 </template>
 
 <script>
-import cadd from "./CategoryItemAdd.vue"
-import cedit from "./CategoryItemEdit.vue"
 import pagination from './Pagination.vue'
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
 import $ from 'jquery'
 export default {
-  name:"categorylist",
   data(){
     return{
       box:false,
@@ -75,19 +72,24 @@ export default {
     }
   },
   mounted(){
+    
+    if(JSON.parse(localStorage.getItem('Category')).length >=7){
+      this.Category=JSON.parse(localStorage.getItem('Category'))
+      this.Category.length=7
+      return(this.Category)
+    }
+    else
     this.Category=JSON.parse(localStorage.getItem('Category'))
   },
   methods:{
     act(c){
       this.Category=JSON.parse(localStorage.getItem('Category'))
-      if(this.Category[c].Status== "ACTIVE"){
-      $('.activitist').eq(c).css({'background-color':'rgb(244, 192, 195)', 'color': 'red'})
-      this.Category[c].Status= "INACTIVE"
+      if(this.Category[c].Status== "Active"){
+      this.Category[c].Status= "Inactive"
       }
-      else if( this.Category[c].Status== "INACTIVE")
+      else if( this.Category[c].Status== "Inactive")
       {
-      $('.activitist').eq(c).css({'background-color':'rgb(206, 209, 255)', 'color': 'rgb(93, 98, 253)' })
-      this.Category[c].Status="ACTIVE"
+      this.Category[c].Status="Active"
       }
       localStorage.setItem('Category',JSON.stringify(this.Category))
     },
@@ -100,7 +102,6 @@ components:{
   leftmenu,
   topbar,
   pagination,
-  cadd,cedit
 }
 }
 </script>

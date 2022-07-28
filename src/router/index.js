@@ -45,7 +45,13 @@ const routes = [
     path: '/Category/Item/Add',
     name: 'cadd',
     component: cadd,
-    
+    children:[
+      {
+        path: '/Category/Item/Edit/:c',
+        name: 'cedit',
+        component: cedit
+      },
+    ]
   },
   {
     path: '/Category/Item/Edit/:c',
@@ -90,5 +96,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+
 
 export default router

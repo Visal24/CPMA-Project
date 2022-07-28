@@ -99,11 +99,11 @@ export default {
   },
   methods:{
     Active(){
-      this.txtactive="ACTIVE",
+      this.txtactive="Active",
       this.active=false
     },
     Inactive(){
-        this.txtactive="INACTIVE",
+        this.txtactive="Inactive",
         this.active=false
     },
     Save(){
@@ -119,7 +119,7 @@ export default {
       this.activealert=true
       else
       this.activealert=false
-      if(this.order== false && this.category== false && (this.txtactive=="ACTIVE" || this.txtactive== "INACTIVE"))
+      if(this.order== false && this.category== false && (this.txtactive=="Active" || this.txtactive== "Inactive"))
       this.$router.push({name:'clist'})
       this.Category =localStorage.getItem('Category'); 
             this.Category =JSON.parse(this.Category)
