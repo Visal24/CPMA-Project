@@ -23,7 +23,9 @@
                    
                     <ul class="m-2 text-sm font-light text-slate-500">
                         
-                        <li class="p-3 ml-2 text-xs font-thin text-slate-400" v-if="title">CATEGORIES</li>
+                        <li class="p-3 ml-2 text-xs font-thin text-slate-400" >
+                        <span v-if="title"> CATEGORIES</span>
+                        </li>
                         
                         <li  class="relative m-2" >
                             <router-link to="/Category/List">
@@ -51,7 +53,9 @@
                        <br> 
                    <ul class="m-2 mt-3 text-sm font-light text-slate-500">
                         
-                        <li class="p-3 pt-4 ml-2 text-xs font-thin text-slate-400" v-if="title">USERS</li>
+                        <li class="p-3 pt-4 ml-2 text-xs font-thin text-slate-400">
+                        <span  v-if="title"> USERS</span>
+                        </li>
                         
                         <li  class="relative m-2" >
                             <router-link to="/User/List">
@@ -66,7 +70,9 @@
                     <br>
                     <ul class="m-2 mt-5 text-sm font-light text-slate-500">
                         
-                        <li class="p-3 ml-2 text-xs font-thin text-slate-400" v-if="title">PROFILES</li>
+                        <li class="p-3 ml-2 text-xs font-thin text-slate-400" >
+                        <span v-if="title"> PROFILES</span>
+                        </li>
                         
                         <li  class="relative m-2" >
                             <router-link to="/Info">
@@ -92,7 +98,9 @@
                     <br>
                     <ul class="m-2 mt-5 text-sm font-light text-slate-500">
                         
-                        <li class="p-3 ml-2 text-xs font-thin text-slate-400" v-if="title">MEMBERS</li>
+                        <li class="p-3 ml-2 text-xs font-thin text-slate-400">
+                        <span v-if="title"> MEMBERS</span>
+                        </li>
                         
                         <li  class="relative m-2" >
                             <router-link to="/Member/List">
@@ -115,33 +123,15 @@
                                 </router-link>
                         </li>
                     </ul> 
-                    <div class="absolute p-2 pb-1 mx-auto rounded-full -right-5 bg-slate-100 top-4">
+                    <div class="absolute p-2 mx-auto rounded-full -right-5 bg-slate-100 top-4">
                         <button @click="title=!title">
-                            <div class="p-2 bg-indigo-500 rounded-full">
-                            <img src="img/close.png" alt="" >
+                            <div class="px-3 py-1 text-white bg-indigo-500 rounded-full">
+                                <font-awesome-icon icon="fa-solid fa-angle-left" v-if="title"/>
+                                <font-awesome-icon icon="fa-solid fa-angle-right" v-else/>
                             </div>
                         </button>
                     </div>
                 </div>
-                <!-- <div class="relative w-1/6 h-full">
-                    <div class="relative w-1/2 h-full bg-white border-r-4 border-slate-50">
-                            <router-link to="/Dashboard"  >
-                                <input type="button" class="absolute right-0 w-1 mt-20 bg-indigo-500 h-9 rounded-l-xl top-2 hover:hidden">
-                            </router-link>
-                            <router-link to="/Category/List"  class="hidden">
-                                <input type="button"  class="absolute right-0 w-1 mt-20 bg-indigo-500 h-9 rounded-l-xl top-24 ">
-                            </router-link>
-                            <router-link to="/User/List"  class="hidden">
-                                <input type="button"  class="absolute right-0 w-1 mt-5 bg-indigo-500 h-9 rounded-l-xl top-72">
-                            </router-link>
-                              <router-link to="/Member/List" class="hidden">
-                                <input type="button" class="absolute right-0 w-1 mb-2 bg-indigo-500 h-9 rounded-l-xl bottom-96">
-                            </router-link>
-                            
-                        
-                    </div>
-                    
-                </div> -->
                
             </div>
       

@@ -20,7 +20,7 @@
           
              
               <tr class="relative w-full h-12 bg-white border-2" 
-              v-for="(Categorys,c) in Category" 
+              v-for="(Categorys,c) in displayedPosts" 
               :key="c">
                 <td class="w-1/6 text-center">{{1+c}}</td>
                 <td class="w-1/6 text-center">{{Categorys.Order}}</td>
@@ -49,17 +49,28 @@
            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"  class="float-right mr-10 mt-7"/>
            
          </div>
-         <pagination></pagination>
+           <div class="absolute bottom-0 w-full text-gray-500 h-1/5" >
+              <ul class="text-xs">
+                  <li @click="Previous()"  class="float-left px-4 py-3 rounded-lg bg-violet-200 hover:bg-slate-400" >
+                    <font-awesome-icon icon="fa-solid fa-angle-left" />
+                  </li>
+                  <li class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-slate-400" v-for="pageNumber in pages.slice(page-1, page+9)" :key="pageNumber"  @click="page = pageNumber">
+                    <button type="button"> {{pageNumber}} </button>
+                  </li>
+                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-slate-400">
+                    <font-awesome-icon icon="fa-solid fa-angle-right" />
+                  </li>
+              </ul>
+            </div>
       </div>
       
   </div>
 </template>
 
 <script>
-import pagination from './Pagination.vue'
+import pagination from './PaginationMember.vue'
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
-import $ from 'jquery'
 export default {
   data(){
     return{
@@ -68,22 +79,65 @@ export default {
       id:1,
       order:2,
       create:"",
-      Category:null
+      Category:null,
+      posts:[],
+      page:1,
+      perPage:10,
+      pages:[] 
     }
   },
-  mounted(){
-    
-    if(JSON.parse(localStorage.getItem('Category')).length >=7){
-      this.Category=JSON.parse(localStorage.getItem('Category'))
-      this.Category.length=7
-      return(this.Category)
+   mounted(){
+    if(JSON.parse(localStorage.getItem('Category')) == null){
+      return;
     }
-    else
-    this.Category=JSON.parse(localStorage.getItem('Category'))
+    else{
+      this.Category=JSON.parse(localStorage.getItem('Category'))
+      this.posts=this.Category
+    }
+      
+    },
+    
+  computed: {
+    displayedPosts () {
+      return this.paginate(this.posts);
+    }
+  },
+  watch: {
+    posts () {
+      this.setPages();
+    }
   },
   methods:{
-    act(c){
+    //pagination 
+      getPosts () { 
       this.Category=JSON.parse(localStorage.getItem('Category'))
+      this.posts=this.Category
+    },
+    
+    setPages () {
+      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate (posts) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = (page * perPage) - perPage;
+      let to = (page * perPage);
+      return  this.posts.slice(from, to);
+    },
+    //event pagination
+    Previous(){
+      if(this.page>1){
+        this.page--;
+      }
+    },
+    Next(){
+      if(this.page < this.pages.length)
+      this.page++
+    },
+    act(c){
       if(this.Category[c].Status== "Active"){
       this.Category[c].Status= "Inactive"
       }

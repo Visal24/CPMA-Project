@@ -6,7 +6,7 @@
             <form class="mx-auto w-80">
                  <input type="text" v-model="email" placeholder="Email or Phone..." class="mt-5 tracking-normal border-2 rounded-md indent-2 border-violet-300 h-14 w-80 text-slate-500">
                  <span v-if="emailmss" class="text-xs text-red-500 ">Please Input Email or Phone</span>
-                 <input type="text" v-model="password" placeholder="Password..." class="mt-5 border-2 rounded-md border-violet-300 h-14 w-80 indent-2 text-slate-500">
+                 <input type="password" v-model="password" placeholder="Password..." class="mt-5 border-2 rounded-md border-violet-300 h-14 w-80 indent-2 text-slate-500">
                  <span v-if="pwmss" class="text-xs text-red-500">Please Input Password</span>
                  <input type="button" @click="Signin()" value="Sign in" class="h-10 mt-5 font-sans text-white bg-indigo-500 rounded-md w-80 hover:bg-indigo-900">
             </form>

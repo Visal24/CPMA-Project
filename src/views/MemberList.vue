@@ -22,10 +22,10 @@
           
              
               <tr class="relative w-full h-12 bg-white border-2" 
-              v-for="(Member, i) in Members" 
+              v-for="(Member, i) in displayedPosts" 
               :Member="Member" 
               :index="i" 
-              :key="i">
+              :key="Member.id">
                 <td class="w-1/12 text-center">{{i+1}}</td>
                 <td class="text-center 2/12" >{{Member.Email}}</td>
                 <td class="w-2/12 text-center">{{Member.Phone}}</td>
@@ -38,7 +38,7 @@
                 <td class="w-2/12 text-center ">2022-07-29 19:20:21</td>
                 <td class="float-right " ><div @click="Member.Box=!Member.Box" class="px-5 py-4 cursor-pointer"><font-awesome-icon icon="fa-solid fa-ellipsis-vertical"/></div> </td>
                 <div v-if="Member.Box" @mouseleave="Member.Box=false" class="absolute z-20 h-20 overflow-hidden bg-indigo-200 rounded-md right-6 top-5 w-44" >
-                    <router-link :to="`/Member/Item/Edit/${i}`">
+                    <router-link :to="`/Member/Item/Edit/${Member.id}`">
                         <div class="flex items-center w-full border-b-2 h-1/2 border-neutral-300 hover:bg-indigo-400" >
                             <span class="pl-5"> Edit</span>
                         </div >
@@ -52,15 +52,28 @@
                 
             </tbody>
          </table>
-          <pagination ></pagination>
+           <div class="absolute bottom-0 w-full text-gray-500 h-1/5" >
+              <ul class="text-xs">
+                  <li @click="Previous()"  class="float-left px-4 py-3 rounded-lg bg-violet-200 hover:bg-slate-400" >
+                    <font-awesome-icon icon="fa-solid fa-angle-left" />
+                  </li>
+                  <li class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-slate-400" v-for="pageNumber in pages.slice(page-1, page+9)" :key="pageNumber"  @click="page = pageNumber">
+                    <button type="button"> {{pageNumber}} </button>
+                  </li>
+                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-slate-400">
+                    <font-awesome-icon icon="fa-solid fa-angle-right" />
+                  </li>
+              </ul>
+            </div>
       </div>
       
   </div>
 </template>
 
 <script>
+
 import $ from "jquery"
-import pagination from './Pagination.vue'
+import pagination from './PaginationMember.vue'
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
 export default {
@@ -74,24 +87,74 @@ export default {
       lname:"",
       Members:null,
       ind:"",
-            
+      posts:[],
+      page:1,
+      perPage:10,
+      pages:[] 
     }
 
   },
-      props:["index","Member","key"],
   mounted(){
-    
-    if(JSON.parse(localStorage.getItem('Member')).length >= 7){
-      this.Members=JSON.parse(localStorage.getItem('Member'))
-      this.Members.length=7
-      return(this.Members)
+    if(JSON.parse(localStorage.getItem('Member')) == null){
+      return
     }
-    else
+    else{
     this.Members=JSON.parse(localStorage.getItem('Member'))
+    this.posts=this.Members
+    }
+
     },
+    
+  computed: {
+    displayedPosts () {
+      return this.paginate(this.posts);
+    }
+  },
+  watch: {
+    posts () {
+      this.setPages();
+    }
+  },
+  // created(){
+  //   this.getPosts();
+  // },
+  // filters: {
+  //   trimWords(value){
+  //     return value.split(" ").splice(0,20).join(" ") + '...';
+  //   }
+  // },
   methods:{
-    act(i){
+    //pagination 
+      getPosts () { 
       this.Members=JSON.parse(localStorage.getItem('Member'))
+      this.posts=this.Members
+    },
+    
+    setPages () {
+      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate (_posts,i) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = (page * perPage) - perPage;
+      let to = (page * perPage);
+      return  this.posts.slice(from, to);
+    },
+    //event pagination
+    Previous(){
+      if(this.page>1){
+        this.page--;
+      }
+    },
+    Next(){
+      if(this.page < this.pages.length)
+      this.page++
+    },
+    //Event table
+    act(i){
       if(this.Members[i].Status== "Active"){
       this.Members[i].Status= "Inactive"
       }

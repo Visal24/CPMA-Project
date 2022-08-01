@@ -24,11 +24,11 @@
                 </div>
                 <div class="relative flex float-right w-full pt-5">
                   <div  class="w-3/12 h-12 "></div>
-                  <input type="text" v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Active ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>
-                  <div v-if="active" class="absolute h-20 overflow-hidden bg-indigo-200 rounded-md right-8 top-10 w-44" @mouseleave="!active">
+                  <div v-if="active" class="absolute h-20 overflow-hidden bg-indigo-200 rounded-md right-8 top-10 w-44" @mouseleave="active=!active">
                     <div @click="Active()" class="flex items-center w-full border-b-2 h-1/2 border-neutral-300 hover:bg-indigo-400" >
                       <span class="pl-5 text-green-500">Active</span>
                     </div >

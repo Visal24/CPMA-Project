@@ -58,7 +58,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from './Pagination.vue'
+import pagination from './PaginationMember.vue'
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
 export default {

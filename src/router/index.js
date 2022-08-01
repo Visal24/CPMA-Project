@@ -76,7 +76,7 @@ const routes = [
     component: madd
   },
   {
-    path: '/Member/Item/Edit/:i',
+    path: '/Member/Item/Edit/:i?',
     name: 'medit',
     component: medit
   },

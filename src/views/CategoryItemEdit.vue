@@ -24,7 +24,7 @@
                 </div>
                 <div class="relative flex float-right w-full pt-5">
                   <div  class="w-3/12 h-12 "></div>
-                  <input type="text" v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Active ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>

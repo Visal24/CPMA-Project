@@ -79,7 +79,7 @@
                 </div>
                 <div class="relative flex w-full pt-5 ">
                   <div class="relative w-6/12">
-                  <input type="text" v-model="txtrole" class="float-right w-full h-12 border-2 rounded-lg w border-violet-300 indent-4" placeholder="Role..." >
+                  <input type="text" readonly v-model="txtrole" class="float-right w-full h-12 border-2 rounded-lg w border-violet-300 indent-4" placeholder="Role..." >
                    <button @click="role=!role">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-1 right-4 hover:bg-slate-400"/>
                   </button>
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                   </div>
-                  <input type="text" v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Active ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>
@@ -135,7 +135,7 @@
 
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
-import Pagination from './Pagination.vue'
+import Pagination from './PaginationMember.vue'
 import $ from 'jquery'
 export default {
   data(){
