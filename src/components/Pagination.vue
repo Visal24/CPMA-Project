@@ -4,7 +4,6 @@
         <li @click="Back()" class="float-left px-4 py-3 rounded-lg bg-violet-200 hover:bg-slate-400" >
            <font-awesome-icon icon="fa-solid fa-angle-left" />
          </li>
-        
         <li @click="Continue()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-slate-400">
            <font-awesome-icon icon="fa-solid fa-angle-right" />
          </li>

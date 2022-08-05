@@ -92,7 +92,7 @@
                     </div>
                   </div>
                   </div>
-                  <input type="text" readonly v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Status ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>
@@ -127,6 +127,15 @@
      
     
     </div>
+    <div class="absolute flex items-center w-screen h-screen" v-if="Savepopup">
+      <div class="absolute w-screen h-screen bg-black opacity-30" >  
+      </div>
+      <div class="relative z-10 h-40 mx-auto overflow-hidden bg-white border-2 w-96 rounded-xl">
+        <div class="w-full text-lg text-white bg-indigo-500 h-7 indent-2">Edit Item</div>
+        <p class="px-12 py-5 text-lg">Your Item Edit Successfully!</p>
+        <input type="button" class="absolute px-4 py-1 text-green-500 bg-green-100 rounded-lg cursor-pointer bottom-3 right-3" value="OK" @click="Ok()">
+      </div>
+    </div>
     
   </div>
 </template>
@@ -135,7 +144,7 @@
 
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
-import Pagination from './PaginationMember.vue'
+import Pagination from './Pagination.vue'
 import $ from 'jquery'
 export default {
   data(){
@@ -157,7 +166,9 @@ export default {
       image:"",
       i: this.$route.params.i,
       Members:null,
-      Upate:null
+      Upate:null,
+      Savepopup:false
+
     }
   },
     mounted(){
@@ -209,8 +220,7 @@ export default {
          else
          this.tpw=false
          if(this.email== false && this.phone== false && this.fname== false && this.lname== false && this.tpw== false && (this.txtrole== "Admin" || this.txtrole== "Moderator") && (this.txtactive== "Active" || this.txtactive== "Inactive")){
-           this.$router.push({name:'mlist'})
-           alert('Edit Successfully')
+      
             this.Members =localStorage.getItem('Member'); 
             this.Members =JSON.parse(this.Members)
             console.log(this.Members[this.i])
@@ -221,14 +231,23 @@ export default {
             this.Members[this.i].Tpassword=this.txttpw
             this.Members[this.i].Role=this.txtrole
             this.Members[this.i].Status=this.txtactive
-            this.Members[this.i].Image=this.image
+            this.Members[this.i].Image=this.image 
+            this.Members[this.i].Delete=false 
             localStorage.setItem('Member',JSON.stringify(this.Members));
+            this.Savepopup=true
+            
          }
         
          
     },
+    //alertaftersave
+    Ok(){
+      var p=Math.floor((this.i/10)+1) 
+      this.$router.push({name:'mlist', params: {p}})
+    },
     Cancel(){
-      this.$router.push({name: 'mlist'})
+      var p=Math.floor((this.i/10)+1) 
+      this.$router.push({name:'mlist', params: {p}})
     },
   closepopup(){
     this.active=false

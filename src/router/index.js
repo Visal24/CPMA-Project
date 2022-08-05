@@ -1,19 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import home from '../views/Home'
+import home from '../components/Home'
 //Category
-import clist from '../views/CategoryList'
-import cadd from '../views/CategoryItemAdd'
-import cedit from '../views/CategoryItemEdit'
+import clist from '../components/CategoryList'
+import cadd from '../components/CategoryItemAdd'
+import cedit from '../components/CategoryItemEdit'
 //User
-import ulist from '../views/UserList'
+import ulist from '../components/UserList'
 //Member
-import mlist from '../views/MemberList'
-import madd from '../views/MemberItemAdd'
-import medit from '../views/MemberItemEdit'
-import dash from '../views/Dashboard'
-import info from '../views/Information'
-import pw from '../views/Password'
+import mlist from '../components/MemberList'
+import madd from '../components/MemberItemAdd'
+import medit from '../components/MemberItemEdit'
+import dash from '../components/Dashboard'
+import info from '../components/Information'
+import pw from '../components/Password'
 const routes = [
 
 
@@ -23,7 +23,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/Login.vue')
   },
   {
     path: '/Home',
@@ -37,7 +37,7 @@ const routes = [
   },
   //Category
   {
-    path: '/Category/List',
+    path: '/Category/List/:cp?',
     name: 'clist',
     component: clist
   },
@@ -66,7 +66,7 @@ const routes = [
   },
   //Member
   {
-    path: '/Member/List',
+    path: '/Member/List/:p?',
     name: 'mlist',
     component: mlist
   },

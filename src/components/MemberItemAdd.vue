@@ -77,7 +77,7 @@
                     </div>
                   </div>
                   </div>
-                  <input type="text" readonly v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-6/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 " placeholder="Status ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>
@@ -95,8 +95,8 @@
                   <p>Here, i focus ona range of items and featured that we use in life without them</p>
                 </div>
                 <div class="flex float-right w-5/6 pb-10 mt-10 text-white">
-                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md hover:bg-slate-400" value="Cancel" @click="Cancel()">
-                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md hover:bg-slate-400" value="Save" @click="Save()">
+                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md hover:bg-slate-400" value="Cancel" @click="Cancel()" >
+                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md hover:bg-slate-400" value="Save" @click="Save()" @keydown.enter.prevent.self>
                 </div>
                 
             </form>
@@ -112,7 +112,16 @@
      
     
     </div>
-    
+    <div class="absolute flex items-center w-screen h-screen" v-if="Addpopup">
+      <div class="absolute w-screen h-screen bg-black opacity-30" >  
+      </div>
+      <div class="relative z-10 h-40 mx-auto overflow-hidden bg-white border-2 w-96 rounded-xl">
+        <div class="w-full text-lg text-white bg-indigo-500 h-7 indent-2">Add Item</div>
+        <p class="px-12 py-5 text-lg">Will you continue to add item?</p>
+        <input type="button" class="absolute px-4 py-1 text-green-500 bg-green-100 rounded-lg cursor-pointer bottom-3 right-3" value="Yes" @click="Yes()">
+        <input type="button" class="absolute px-5 py-1 text-red-500 bg-red-100 rounded-lg cursor-pointer bottom-3 right-20" value="No" @click="No()">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -120,7 +129,7 @@
 
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
-import Pagination from './PaginationMember.vue'
+import Pagination from './Pagination.vue'
 import $ from 'jquery'
 export default {
   data(){
@@ -142,6 +151,7 @@ export default {
       image:"",
       member:null,
       Member:[], 
+      Addpopup:false
           
     } 
   },
@@ -177,7 +187,7 @@ export default {
          else
          this.fname=false
          if(this.txtlname== "" || this.txtlname.length>14)
-         this.lname=truethis.Member =localStorage.getItem('Member'); 
+         this.lname=true; 
          else
          this.lname=false
          if(this.txttpw== "")
@@ -186,7 +196,7 @@ export default {
          this.tpw=false
          if(this.email== false && this.phone== false && this.fname== false && this.lname== false && this.tpw== false && (this.txtrole== "Admin" || this.txtrole== "Moderator") && (this.txtactive== "Active" || this.txtactive== "Inactive")){
           //  this.$router.push({name:'mlist'});
-            if(localStorage.getItem('Member')== null){
+                if(localStorage.getItem('Member')== null){
               this.member=
                 {
                 Email:this.txtemail,
@@ -198,18 +208,19 @@ export default {
                 Status:this.txtactive,
                 Image:this.image,
                 Box:false,
-                id:0
+                Delete:false
                 };
             if(!this.Member)
             return;
             this.Member.push(this.member)
             localStorage.setItem('Member',JSON.stringify(this.Member));
-            alert("Save successfully!")
+            this.$router.push({name:'mlist'})
            }
            else{
+            
             this.Member =localStorage.getItem('Member')
             this.Member =JSON.parse(this.Member);
-           this.member=
+              this.member=
               {
               Email:this.txtemail,
               Phone:this.txtphone,
@@ -220,23 +231,34 @@ export default {
               Status:this.txtactive,
               Image:this.image,
               Box:false,
-              id:this.Member.length
+              Delete:false
               };
            if(!this.Member)
            return;
            this.Member.push(this.member)
            localStorage.setItem('Member',JSON.stringify(this.Member));
-           alert("Save successfully!")
-           }
-           
-        
+            }
+           this.Member =JSON.parse(localStorage.getItem('Member'))
+           this.Addpopup=true
            
          }
         
          
     },
+    //addpopup
+    Yes(){
+        this.Addpopup=false
+        setTimeout("location.reload(true);",0);
+    },
+    No(){
+        
+        var m=Math.floor((this.Member.length-1)/10+1)
+        this.$router.replace({path: `/Member/List/${m}`}) 
+    },
+    
     Cancel(){
-      this.$router.push({name: 'mlist'})
+      var m=1
+       this.$router.replace({path: `/Member/List/${m}`})
     },
   closepopup(){
     this.active=false

@@ -28,7 +28,7 @@
                 <td class="w-2/12 text-center">HelloCDs</td>
                 <td class="w-2/12 text-center"><Main>Moms</Main></td>
                 <td class="w-1/12 text-center"  @click="act()">
-                  <input type="button" id="activitist" class="px-4 py-1 text-indigo-500 bg-indigo-200 rounded-md" v-model="name">
+                  <input type="button" id="activitist" class="px-6 py-0.5 text-indigo-500 rounded-md bg-violet-100" v-model="name">
                 </td>
                 <td class="w-2/12 text-center ">2022-07-29 19:20:21</td>
                 <td class="float-right py-4 mr-5 text-red-500 2/12" ><div @click="box=!box"><font-awesome-icon icon="fa-solid fa-trash-can" /></div> </td>
@@ -41,7 +41,7 @@
                 <td class="w-2/12 text-center">HelloCDs</td>
                 <td class="w-2/12 text-center"><Main>Moms</Main></td>
                 <td class="w-1/12 text-center">
-                  <span class="px-4 py-1 text-red-500 bg-red-200 rounded-md"> INACTIVE</span>  
+                  <span class="px-4 py-1 text-red-500 bg-red-100 rounded-md"> INACTIVE</span>  
                 </td>
                 <td class="w-2/12 text-center ">2022-07-29 19:20:21</td>
                 <td class="float-right py-4 mr-5 text-red-500 2/12" ><div @click="deletecolumn=!deletecolumn"><font-awesome-icon icon="fa-solid fa-trash-can" /></div> </td>
@@ -50,7 +50,6 @@
             </tbody>
          </table>
          
-         <pagination></pagination>
       </div>
       
   </div>
@@ -58,7 +57,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from './PaginationMember.vue'
+import pagination from './Pagination.vue'
 import leftmenu from './Leftmenu.vue'
 import topbar from './Topbar.vue'
 export default {

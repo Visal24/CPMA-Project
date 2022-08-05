@@ -6,7 +6,7 @@
       <div class="mt-6 mb-10 text-gray-500">Here, i focus ona range of items and featured that we use in life without them</div>
           <div class="float-left w-2/3 text-sm text-gray-500 bg-white rounded-lg h-2/3">
             <form class=" mt-7 mx-7">
-                <h1 class="text-2xl">Add Item</h1>
+                <h1 class="text-2xl">Edit Item</h1>
                 <div class="flex mt-5">
                   <input type="text" v-model="txtorder" class="w-3/12 h-12 border-2 rounded-lg border-violet-300 indent-4" placeholder="Order ...">
                   <input type="text"  v-model="txtcate" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4" placeholder="Category ...">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="relative flex float-right w-full pt-5">
                   <div  class="w-3/12 h-12 "></div>
-                  <input type="text" readonly v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Active ..." >
+                  <input type="text" readonly v-model="txtactive" class="float-right w-9/12 h-12 ml-5 border-2 rounded-lg border-violet-300 indent-4 scroll-pl-10" placeholder="Status ..." >
                   <button @click="active=!active">
                     <font-awesome-icon icon="fa-solid fa-angle-down" class="absolute p-2 text-white bg-indigo-500 border-4 rounded-full top-6 right-4 hover:bg-slate-400"/>
                   </button>
@@ -62,6 +62,15 @@
      
     
     </div>
+    <div class="absolute flex items-center w-screen h-screen" v-if="Savepopup">
+      <div class="absolute w-screen h-screen bg-black opacity-30" >  
+      </div>
+      <div class="relative z-10 h-40 mx-auto overflow-hidden bg-white border-2 w-96 rounded-xl">
+        <div class="w-full text-lg text-white bg-indigo-500 h-7 indent-2">Edit Item</div>
+        <p class="px-12 py-5 text-lg">Your Item Edit Successfully!</p>
+        <input type="button" class="absolute px-4 py-1 text-green-500 bg-green-100 rounded-lg cursor-pointer bottom-3 right-3" value="OK" @click="Ok()">
+      </div>
+    </div>
     
   </div>
 </template>
@@ -81,8 +90,10 @@ export default {
       order:false,
       category:false,
       activealert:false,
-      Category:[],
-      Newcate:null
+      Category:null,
+      c: this.$route.params.c,
+      Savepopup:false
+      
     }
   },
   // props:{
@@ -90,14 +101,20 @@ export default {
   //   txtorder:Number,
   //   txtcate:Number,
   // },
+  mounted(){
+    this.Category=JSON.parse(localStorage.getItem('Category'))
+    this.txtorder=this.Category[this.c].Order
+    this.txtcate=this.Category[this.c].Category
+    this.txtactive=this.Category[this.c].Status
+  },
   methods:{
     Active(){
       this.txtactive="Active",
       this.active=false
     },
-  Inactive(){
-      this.txtactive="Inactive",
-      this.active=false
+    Inactive(){
+        this.txtactive="Inactive",
+        this.active=false
     },
     Save(){
       if(this.txtorder== '')
@@ -113,43 +130,24 @@ export default {
       else
       this.activealert=false
       if(this.order== false && this.category== false && (this.txtactive=="Active" || this.txtactive== "Inactive"))
-      {
-        if(localStorage.getItem('Category')== null){
-          this.Newcate={
-          Order:this.txtorder,
-          Category:this.txtcate,
-          Status:this.txtactive,
-          box:false,
-        }
-        if(!this.Newcate)
-        return
-        this.Category.push(this.Newcate)
-       
-        localStorage.setItem('Category',JSON.stringify(this.Category));
-        alert("Save successfully!")
-        }
-        else {
-        this.Category =localStorage.getItem('Category'); 
-        this.Category =JSON.parse(this.Category)
-        this.Newcate={
-          Order:this.txtorder,
-          Category:this.txtcate,
-          Status:this.txtactive,
-          box:false,
-        }
-        if(!this.Newcate)
-        return
-        this.Category.push(this.Newcate)
-       
-        localStorage.setItem('Category',JSON.stringify(this.Category));
-        alert("Save successfully!")
-        }
-        
-      }
-      
+      this.Category =localStorage.getItem('Category'); 
+            this.Category =JSON.parse(this.Category)
+            console.log(this.Category[this.c])
+            this.Category[this.c].Order= this.txtorder
+            this.Category[this.c].Category= this.txtcate
+            this.Category[this.c].Status= this.txtactive
+            this.Category[this.c].Delete=false
+            localStorage.setItem('Category',JSON.stringify(this.Category));
+            this.Savepopup=true
+    },
+    //alertaftersave
+    Ok(){
+      var cp=Math.floor((this.c/10)+1) 
+      this.$router.push({name:'clist', params: {cp}})
     },
     Cancel(){
-      this.$router.push({name:'clist'})
+      var cp=Math.floor((this.c/10)+1) 
+      this.$router.push({name:'clist', params: {cp}})
     }
   },
 components:{
