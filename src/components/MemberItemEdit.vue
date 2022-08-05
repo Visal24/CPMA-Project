@@ -110,8 +110,8 @@
                   <p>Here, i focus ona range of items and featured that we use in life without them</p>
                 </div>
                 <div class="flex float-right w-5/6 pb-10 mt-10 text-white">
-                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md hover:bg-slate-400" value="Cancel" @click="Cancel()">
-                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md hover:bg-slate-400" value="Save" @click="Save()">
+                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md cursor-pointer hover:bg-slate-400" value="Cancel" @click="Cancel()">
+                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md cursor-pointer hover:bg-slate-400" value="Save" @click="Save()">
                 </div>
                 
             </form>
@@ -119,7 +119,7 @@
          <div class="float-left w-1/3 text-gray-500"> 
            <p class="w-full pl-10 p-7">Photo</p>
            <input type="file" name="" id="addimg" class="hidden w-full h-full rounded-full bg-slate-600" @change="filechange">
-            <div @click="Chooseimg()"  class="relative w-64 h-64 mx-auto mt-5 overflow-hidden bg-white border-2 rounded-full border-violet-300 hover:bg-slate-300">
+            <div @click="Chooseimg()"  class="relative w-64 h-64 mx-auto mt-5 overflow-hidden bg-white border-2 rounded-full cursor-pointer border-violet-300 hover:bg-slate-300">
               <img :src="image" alt="" class="object-cover w-full h-full">   
             </div>
          </div>

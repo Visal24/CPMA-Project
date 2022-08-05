@@ -10,6 +10,7 @@ import VueAwesomePaginate from "vue-awesome-paginate";
 import {faHouse,faCube,faMagnifyingGlass,faTableCellsLarge,faCrown,faArrowUp,faArrowDown,faEllipsisVertical,faAngleDown,faAngleLeft,faAngleRight,faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import {faEnvelope,faMessage,faBell,faMoon} from '@fortawesome/free-regular-svg-icons'
 import "vue-awesome-paginate/dist/style.css";
+import store from './store'
 
 library.add(faHouse,faEnvelope,faMessage,faCube,faMagnifyingGlass,faBell,faTableCellsLarge,faMoon,faCrown,faArrowUp,faArrowDown,faEllipsisVertical,faAngleDown,faAngleLeft,faAngleRight,faTrashCan)
 
@@ -19,7 +20,5 @@ createApp(App)
 .use(VueAwesomePaginate)
 .mount('#app')
 .use(store)
-const store = createStore({
 
-})
 

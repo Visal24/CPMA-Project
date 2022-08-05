@@ -4,7 +4,9 @@
       <a href="#/Dashboard">
       <font-awesome-icon icon="fa-solid fa-magnifying-glass"  class="absolute h-5 text-gray-500 left-5 top-4"/>
       </a>
+      <button @click="logout()">
       <img src="img/user.png" alt="" class="absolute p-1 rounded-full top-2 right-4 bg-violet-300">
+      </button>
       <a href="#/Dashboard">
       <font-awesome-icon icon="fa-regular fa-bell" class="absolute h-5 text-gray-500 right-20 top-4"/>
       </a>
@@ -23,7 +25,13 @@ export default {
     return{
       search:'hello'
     }
-  }
+  },
+  methods:{
+    logout(){
+      localStorage.removeItem('User')
+      this.$router.push({name: 'login'})
+    }
+  },
 }
 </script>
 

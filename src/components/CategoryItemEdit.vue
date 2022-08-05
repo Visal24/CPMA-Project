@@ -45,8 +45,8 @@
                   </div>
                 </div>
                 <div class="flex float-right w-5/6 mt-10 text-white">
-                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md hover:bg-slate-400" value="Cancel" @click="Cancel()">
-                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md hover:bg-slate-400" value="Save" @click="Save()">
+                  <input type="button" class="w-1/2 h-10 bg-indigo-300 rounded-md cursor-pointer hover:bg-slate-400" value="Cancel" @click="Cancel()">
+                  <input type="button" class="w-1/2 h-10 ml-5 bg-indigo-500 rounded-md cursor-pointer hover:bg-slate-400" value="Save" @click="Save()">
                 </div>
                 <div class="float-left w-full mt-12">
                   <p>Here, i focus ona range of items and featured that we use in life without them</p>

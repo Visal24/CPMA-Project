@@ -32,19 +32,19 @@
                 <td class="w-2/12 text-center">{{Member.Firstname}}</td>
                 <td class="w-2/12 text-center" >{{Member.Lastname}}</td>
                  <td class="w-1/12 text-center"  @click="acts((page-1)*10+i)" >
-                  <input type="button"  class="px-6 py-0.5 text-indigo-500 uppercase rounded-md bg-violet-100 activitist" v-if="Member.Status==='Active'" v-model="Member.Status">
-                  <input type="button"  class="px-4 py-0.5 text-red-500 uppercase bg-red-100 rounded-md activitist" v-else-if="Member.Status==='Inactive'" v-model="Member.Status">
+                  <input type="button"  class="px-6 py-0.5 text-indigo-500 uppercase rounded-md bg-violet-100 activitist cursor-pointer" v-if="Member.Status==='Active'" v-model="Member.Status">
+                  <input type="button"  class="px-4 py-0.5 text-red-500 uppercase bg-red-100 rounded-md activitist cursor-pointer" v-else-if="Member.Status==='Inactive'" v-model="Member.Status">
                 </td>
                 <td class="w-2/12 text-center ">2022-07-29 19:20:21</td>
                 <td class="relative float-right" ><div @click="Member.Box=!Member.Box" class="px-5 py-4 cursor-pointer">
                 <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"/></div> 
                 <div v-if="Member.Box" @mouseleave="Member.Box=false" class="absolute z-20 h-20 overflow-hidden rounded-md bg-violet-100 right-6 top-5 w-44" >
                     <router-link :to="`/Member/Item/Edit/${(page-1)*10+i}`">
-                        <div class="flex items-center w-full border-b-2 h-1/2 border-neutral-300 hover:bg-indigo-400" >
+                        <div class="flex items-center w-full border-b-2 h-1/2 border-neutral-300 hover:bg-violet-200" >
                             <span class="pl-5"> Edit</span>
                         </div >
                     </router-link>
-                      <div class="flex items-center w-full cursor-pointer h-1/2 border-neutral-300 hover:bg-indigo-400" @click="Member.Delete=!Member.Delete">
+                      <div class="flex items-center w-full cursor-pointer h-1/2 border-neutral-300 hover:bg-violet-200" @click="Member.Delete=!Member.Delete">
                         <span class="pl-5 text-red-500"> Delete</span>
                     </div>
                 </div>
@@ -67,11 +67,11 @@
          </table>
            <div class="absolute bottom-0 w-full text-gray-400 h-1/5" >
               <ul class="text-xs" v-if="page<10">
-              <li @click="Begin()"  class="float-left px-4 py-3 rounded-lg bg-violet-200 hover:bg-violet-300" >
+              <li @click="Begin()"  class="float-left px-4 py-3 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300" >
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                   </li>
-                  <li @click="Previous()"  class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300" >
+                  <li @click="Previous()"  class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300" >
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                   </li>
                   <li class="float-left" 
@@ -84,21 +84,21 @@
                   </router-link>
                   </li>
                   
-                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300">
+                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300">
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                   </li>
-                  <li @click="Last()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300">
+                  <li @click="Last()" class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300">
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                   </li>
                   
               </ul>
               <ul class="text-xs" v-else>
-                <li @click="Begin()"  class="float-left px-4 py-3 rounded-lg bg-violet-200 hover:bg-violet-300" >
+                <li @click="Begin()"  class="float-left px-4 py-3 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300" >
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                   </li>
-                  <li @click="Previous()"  class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300" >
+                  <li @click="Previous()"  class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300" >
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
                   </li>
                   
@@ -112,10 +112,10 @@
                   </router-link>
                   </li>
                   
-                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300">
+                  <li @click="Next()" class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300">
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                   </li>
-                  <li @click="Last()" class="float-left px-4 py-3 ml-1 rounded-lg bg-violet-200 hover:bg-violet-300">
+                  <li @click="Last()" class="float-left px-4 py-3 ml-1 rounded-lg cursor-pointer bg-violet-200 hover:bg-violet-300">
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                     <font-awesome-icon icon="fa-solid fa-angle-right" />
                   </li>
@@ -217,7 +217,7 @@ export default {
       }
      var m=this.page
       this.$router.push({path:`${m}`})
-      setTimeout("location.reload(true);",0);;
+      setTimeout("location.reload(true);",0);
     },
      Last(){
       var m=Math.floor((this.Members.length-1)/10+1)

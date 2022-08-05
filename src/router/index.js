@@ -1,19 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import home from '../components/Home'
 //Category
-import clist from '../components/CategoryList'
-import cadd from '../components/CategoryItemAdd'
-import cedit from '../components/CategoryItemEdit'
-//User
-import ulist from '../components/UserList'
-//Member
-import mlist from '../components/MemberList'
-import madd from '../components/MemberItemAdd'
-import medit from '../components/MemberItemEdit'
-import dash from '../components/Dashboard'
-import info from '../components/Information'
-import pw from '../components/Password'
+
 const routes = [
 
 
@@ -23,72 +11,100 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../components/Login.vue'),
   },
+
   {
     path: '/Home',
     name: 'home',
-    component: home
+    component: () => import(/* webpackChunkName: "login" */ '../components/Home'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Dashboard',
     name: 'dashboard',
-    component:dash
+    component:() => import(/* webpackChunkName: "login" */ '../components/Dashboard'),
+    meta:{
+      requiresAuth: true
+    }
   },
   //Category
   {
     path: '/Category/List/:cp?',
     name: 'clist',
-    component: clist
+    component:() => import(/* webpackChunkName: "login" */ '../components/CategoryList'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Category/Item/Add',
     name: 'cadd',
-    component: cadd,
-    children:[
-      {
-        path: '/Category/Item/Edit/:c',
-        name: 'cedit',
-        component: cedit
-      },
-    ]
+    component: () => import(/* webpackChunkName: "login" */ '../components/CategoryItemAdd'),
+    meta:{
+      requiresAuth: true
+    }
+
   },
   {
     path: '/Category/Item/Edit/:c',
     name: 'cedit',
-    component: cedit
+    component: () => import(/* webpackChunkName: "login" */ '../components/CategoryItemEdit'),
+    meta:{
+      requiresAuth: true
+    }
   },
   //User
   {
     path: '/User/List',
     name: 'ulist',
-    component: ulist
+    component: () => import(/* webpackChunkName: "login" */ '../components/UserList'),
+    meta:{
+      requiresAuth: true
+    }
   },
   //Member
   {
     path: '/Member/List/:p?',
     name: 'mlist',
-    component: mlist
+    component: () => import(/* webpackChunkName: "login" */ '../components/MemberList'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Member/Item/Add',
     name: 'madd',
-    component: madd
+    component: () => import(/* webpackChunkName: "login" */ '../components/MemberItemAdd'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Member/Item/Edit/:i?',
     name: 'medit',
-    component: medit
+    component: () => import(/* webpackChunkName: "login" */ '../components/MemberItemEdit'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Password',
     name: 'pw',
-    component: pw
+    component: () => import(/* webpackChunkName: "login" */ '../components/Password'),
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/Info',
     name: 'info',
-    component: info
+    component: () => import(/* webpackChunkName: "login" */ '../components/Information'),
+    meta:{
+      requiresAuth: true
+    }
   },
 ]
 
@@ -97,6 +113,12 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && ! localStorage.getItem('User')) next('/')
+  else next();
+});
 
 
 export default router

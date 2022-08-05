@@ -29,7 +29,9 @@ export default{
            email:"", 
            password:"",
            emailmss:false,
-           pwmss:false
+           pwmss:false,
+           User:[],
+           
         }
     },
     methods:{
@@ -54,7 +56,17 @@ export default{
                 }
                 
                 else
-                this.$router.push({name:"dashboard"})
+                {
+                    const user={
+                        Email:this.email,
+                        Password:this.password
+                    }
+                    this.User.push(user)
+                    localStorage.setItem('User',JSON.stringify(this.User))
+                    this.$router.push({name:"dashboard"})
+                }
+                
+                
             }
         }
     }
